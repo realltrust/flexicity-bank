@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flexicity Bank</title>
+    <link rel="icon" href="/images/favicon1.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/images/favicon1.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon1.png" type="image/png">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2200020098231809" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
+
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2200020098231809"
+     crossorigin="anonymous"></script>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color:rgb(171, 48, 248);
+            color: white;
+            text-align: left;
+            padding: 20px;
+            font-size: 24px;
+        }
+        nav {
+            
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            background-color: rgb(172, 55, 245)#0055aa;
+            border-radius: 5px;
+        }
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        .container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        footer {
+            background-color: #A020F0;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        input, textarea, button {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #A020F0;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color:rgb(172, 55, 245);
+        }
+        h3{
+            text-align: left;
+        }
+        #chat-box p {
+            margin: 5px 0;
+        }
+        .file-preview img, .file-preview video {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        #chat {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border: 2px solid #A020F0;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            animation: slideUp 0.4s ease;
+        }
+        
+        #chat .container {
+            box-shadow: none;
+            padding: 15px;
+        }
+        
+        #chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #A020F0;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        #chat-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+        
+        #message {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .file-preview {
+            margin-top: 10px;
+        }
+        
+        .signup-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #A020F0;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #A020F0;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <header class="bg-purple-700 text-white py-1 px-21 shadow-md">
+        <p class="text-2xl font-bold">Internet banking</p>
+      </header>
+
+
+<script>
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+</script>
+
+<nav class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md transition duration-300">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center relative">
+    <div class="text-xl font-bold text-purple-700 dark:text-purple-400">
+        <img src="images/favicon1.png" alt="Logo" width="50" height="50">
+
+</div>
+
+    
+    <button id="dark-toggle" class="text-gray-700 dark:text-gray-300 text-xl mr-4 md:mr-0">
+      <i class="fas fa-moon transition-transform duration-300 hover:rotate-12"></i>
+    </button>
+
+    <!-- Hamburger -->
+    <button id="menu-btn" class="md:hidden text-gray-700 dark:text-gray-300 text-2xl focus:outline-none">
+      <i class="fas fa-bars" style="font-size: 24px;"></i>
+    </button>
+
+    <!-- Side Drawer -->
+    <div id="menu" class="fixed top-0 left-[-100%] h-full w-64 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 shadow-lg transition-all duration-300 flex flex-col pt-20 space-y-5 z-50 md:hidden">
+      <a href="#home" class="menu-link"><i class="fas fa-home" style="font-size: 24px;"></i> Home</a>
+      <a href="#about" class="menu-link"><i class="fas fa-info-circle" style="font-size: 24px;"></i> About</a>
+      <a href="#services" class="menu-link"><i class="fas fa-concierge-bell" style="font-size: 24px;"></i> Services</a>
+
+      <!-- Dropdown inside drawer -->
+      <div class="relative group">
+        <button class="menu-link flex justify-between items-center">
+          <span><i class="fas fa-university" style="font-size: 24px;"></i> Account</span>
+          <i class="fas fa-chevron-down" style="font-size: 24px;"></i>
+        </button>
+        <div class="hidden group-hover:block bg-white dark:bg-gray-800 border dark:border-gray-700 mt-2 ml-4 rounded-md shadow-md w-48">
+          <a href="#ngn" class="menu-link text-sm">NGN Account</a>
+          <a href="#usd" class="menu-link text-sm">USD Account</a>
+          <a href="#crypto" class="menu-link text-sm">Crypto Wallet</a>
+        </div>
+      </div>
+
+      <a href="#contact" class="menu-link"><i class="fas fa-envelope" style="font-size: 24px;"></i> Contact</a>
+      <a href="#login" class="menu-link text-purple-700 dark:text-purple-400 font-semibold"><i class="fas fa-sign-in-alt" style="font-size: 24px;"></i> Login</a>
+      <a href="#signup" class="menu-link bg-purple-700 text-white hover:bg-purple-800 px-4 py-2 rounded-md inline-block">
+        <i class="fas fa-user-plus" style="font-size: 24px;" onclick="toggleSignup()"></i> Open Account
+      </a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex md:items-center md:space-x-6">
+      <a href="#home" class="menu-link"><i class="fas fa-home" style="font-size: 24px;"></i> Home</a>
+      <a href="#about" class="menu-link"><i class="fas fa-info-circle" style="font-size: 24px;"></i> About</a>
+      <a href="#services" class="menu-link"><i class="fas fa-concierge-bell" style="font-size: 24px;"></i> Services</a>
+
+      <!-- Dropdown -->
+      <div class="relative group">
+        <button class="menu-link flex items-center gap-2">
+          <i class="fas fa-university"></i> Account <i class="fas fa-chevron-down text-xs mt-1" style="font-size: 24px;"></i>
+        </button>
+        <div class="absolute hidden group-hover:block bg-white dark:bg-gray-800 border dark:border-gray-700 mt-2 rounded-md shadow-md w-48">
+          <a href="#ngn" class="menu-link text-sm">NGN Account</a>
+          <a href="#usd" class="menu-link text-sm">USD Account</a>
+          <a href="#crypto" class="menu-link text-sm">Crypto Wallet</a>
+        </div>
+      </div>
+
+      <a href="#contact" class="menu-link"><i class="fas fa-envelope" style="font-size: 24px;"></i> Contact</a>
+      <a href="#login" class="menu-link text-purple-700 dark:text-purple-400 font-semibold"><i class="fas fa-sign-in-alt" style="font-size: 24px;"></i> Login</a>
+      <a href="#signup" onclick="toggleSignup()" class="flex items-center gap-1 bg-purple-700 text-white px-3 py-1 rounded-md hover:bg-purple-800">
+        <i class="fas fa-user-plus" style="font-size: 24px;" onclick="toggleSignup()"></i><span>Open Account</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .menu-link {
+    @apply flex items-center gap-2 px-4 py-2 hover:text-purple-700 dark:hover:text-purple-400 transition;
+  }
+
+  .menu-link.active {
+    @apply text-purple-700 dark:text-purple-400 font-bold;
+  }
+
+  .menu-link i {
+    @apply transition-transform duration-300;
+  }
+
+  .menu-link:hover i {
+    @apply -translate-y-0.5 scale-105;
+  }
+</style>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  const darkToggle = document.getElementById('dark-toggle');
+
+
+  menuBtn.addEventListener('click', () => {
+    menu.style.left = menu.style.left === '0px' ? '-100%' : '0px';
+  });
+
+  darkToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  const links = document.querySelectorAll('.menu-link');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      menu.style.left = '-100%';
+    });
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+      menu.style.left = '-100%';
+    }
+  });
+</script>
+  
+    <section id="home">
+        <div class="container">
+            <img src="/images/Business-banking.png" alt="Welcome to Flexcity Bank">
+            
+            <p style="font-weight:900;">Banking</p>
+            <div style="position:absolute;">
+                <h2>Welcome to Flexcity Bank</h2>
+                We understand the unique challenges businesses face, which is why we offer customized banking solutions for businesses of all sizes. 
+                From business loans to merchant services, we are here to help your business thrive.
+            </div>
+        </div>
+    </section>
+
+    <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-ez+5w+4i-d0+6y"
+     data-ad-client="ca-pub-2200020098231809"
+     data-ad-slot="4626249528"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <section id="about">
+        <div class="container">
+            <img src="/images/about-image.png" alt="About Flexicity Bank">
+            <h2>About Us</h2>
+            <p>Flexicity Bank is a provider of personal banking, business banking, and wealth management services.</p>
+        </div>
+    </section>
+    <section id="services">
+        <div class="container">
+            <img src="/images/wealth-management.png" alt="Our Services">
+            <h2>Our Services</h2>
+            <p>We offer personal and business banking, financial literacy workshops, and community support initiatives.</p>
+        </div>
+    </section>
+    <section id="resources">
+        <div class="container">
+            <img src="/images/resources-image.png" alt="Resources">
+            <h3>Account Opening Application</h3>
+            <div>
+                To open a new account with Flexicity Bank, please complete the Account Opening Application form. 
+                This form captures your personal information, contact details, and account preferences, 
+                enabling us to serve yo
+                Make sure to provide accurate information for a smooth account setup process.
+            </div>
+        </div>
+    </section>
+    
+        <section id="signup" style="display:none; position: fixed; 
+        top: 100px;  width: 300px; left: 50%; max-height: 500px; 
+        background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+        border-radius: 15px; z-index: 1000; 
+        overflow: hidden; transition: 0.3s ease-in-out;">
+            <div class="container">
+                <h2>Open Account</h2>
+            <form id="signup-form">
+                <input type="text" id="signup-username" placeholder="First Name" required>
+                <input type="text" id="signup-username" placeholder="Last Name" required>
+                <input type="text" id="signup-username" placeholder="Phone Number" required>
+                <input type="text" id="signup-username" placeholder="Email Address" required>
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <button type="submit">Create Account</button>
+            </form>
+            </div>
+        </section>
+    
+    </section>
+    <section id="login">
+        <div class="container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="login-username" placeholder="Username" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </section>
+    <div id="chat-toggle" onclick="toggleChat()" style="position: fixed; bottom: 20px; right: 20px; background-color: #A020F0; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <i class="fas fa-comments" style="font-size: 30px;"></i>
+    </div>
+
+    <section id="chat" style="display:none; position: fixed; bottom: 90px; right: 20px; width: 300px; max-height: 500px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border-radius: 15px; z-index: 1000; overflow: hidden; transition: 0.3s ease-in-out;">
+        <div style="background-color: #A020F0; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center;">
+            <strong>Flexi Chat</strong>
+            <button onclick="toggleChat()" style="background: transparent; border: none; color: white; font-size: 18px; cursor: pointer;"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div id="chat-box" style="padding: 10px; height: 250px; overflow-y: auto;"></div>
+        <div style="padding: 10px; display: flex; flex-direction: column; gap: 5px;">
+            <input type="text" id="message" placeholder="Type your message..." style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+            <button onclick="sendMessage()" style="background-color: #A020F0; color: white; padding: 8px; border: none; border-radius: 5px; cursor: pointer;">Send</button>
+            <input type="file" id="fileInput">
+            <button onclick="sendFile()" style="margin-top: 5px; background-color: #A020F0; color: white; padding: 8px; border: none; border-radius: 5px; cursor: pointer;">Send File</button>
+        </div>
+        <div class="file-preview" id="file-preview" style="padding: 10px;"></div>
+    </section>
+    <script>
+        const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+
+        function toggleSignup() {
+            const signup = document.getElementById("signup");
+            if (signup.style.display === "none" || signup.style.display === "") {
+                signup.style.display = "block";
+            } else {
+                signup.style.display = "none";
+            }
+        }
+
+        function toggleLogin() {
+            const login = document.getElementById("login");
+            if (login.style.display === "none" || login.style.display === "") {
+                login.style.display = "block";
+            } else {
+                login.style.display = "none";
+            }
+        }
+
+
+
+
+        function toggleChat() {
+            const chat = document.getElementById("chat");
+            if (chat.style.display === "none" || chat.style.display === "") {
+                chat.style.display = "block";
+            } else {
+                chat.style.display = "none";
+            }
+        }
+
+        function sendMessage() {
+            const message = document.getElementById("message").value.trim();
+            if (message) {
+              const chatBox = document.getElementById("chat-box");
+              const newMsg = document.createElement("div");
+              newMsg.textContent = message;
+              newMsg.className = "bg-purple-100 px-3 py-2 rounded-md w-fit max-w-[75%]";
+              chatBox.appendChild(newMsg);
+              document.getElementById("message").value = "";
+              chatBox.scrollTop = chatBox.scrollHeight;
+            }
+          }
+      
+          function sendFile() {
+            const fileInput = document.getElementById("fileInput");
+            const preview = document.getElementById("file-preview");
+            if (fileInput.files.length > 0) {
+              const file = fileInput.files[0];
+              preview.textContent = `File attached: ${file.name}`;
+            }
+          }
+    </script>
+    
+    <script>
+        const socket = io('http://localhost:5001');
+
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+            console.log('Signup:', { username, password });
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            console.log('Login:', { username, password });
+        });
+
+        socket.on('message', function(data) {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<p><strong>${data.user}:</strong> ${data.message}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            socket.emit('message', { user: 'User', message });
+            document.getElementById('message').value = '';
+        }
+
+        function sendFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    socket.emit('file', { user: 'User', fileName: file.name, fileData: event.target.result });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+    <section id="contact">
+        <div class="container">
+            <img src="/images/professional-banking.png" alt="Contact Us">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us for more information on how we can help you achieve financial success.</p>
+            <form name="contact" netlify>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        &copy; 2025 Flexicity Bank. All rights reserved.
+    </footer>
+</body>
+</html>
