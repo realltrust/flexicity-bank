@@ -305,36 +305,6 @@
   }
 </style>
 
-<script>
-  const menuBtn = document.getElementById('menu-btn');
-  const menu = document.getElementById('menu');
-  const darkToggle = document.getElementById('dark-toggle');
-
-
-  menuBtn.addEventListener('click', () => {
-    menu.style.left = menu.style.left === '0px' ? '-100%' : '0px';
-  });
-
-  darkToggle.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-  });
-
-  const links = document.querySelectorAll('.menu-link');
-  links.forEach(link => {
-    link.addEventListener('click', () => {
-      links.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-      menu.style.left = '-100%';
-    });
-  });
-
-  window.addEventListener('click', (e) => {
-    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-      menu.style.left = '-100%';
-    }
-  });
-</script>
   
     <section id="home">
         <div class="container">
@@ -387,11 +357,13 @@
     </section>
     
         <section id="signup" style="display:none; position: fixed; 
-        top: 100px;  width: 300px; left: 50%; max-height: 500px; 
+        top: 100px;  width: 300px; left: 30%; max-height: 500px; 
         background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
         border-radius: 15px; z-index: 1000; 
         overflow: hidden; transition: 0.3s ease-in-out;">
             <div class="container">
+                <i class="fas fa-close" style="font-size: 24px;float:left;color:#ffffff;
+                background:black; border-radius:50px; padding:5px;" onclick="toggleSignup()"></i>
                 <h2>Open Account</h2>
             <form id="signup-form">
                 <input type="text" id="signup-username" placeholder="First Name" required>
@@ -435,13 +407,6 @@
         <div class="file-preview" id="file-preview" style="padding: 10px;"></div>
     </section>
     <script>
-        const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('menu');
-
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-  });
-
         function toggleSignup() {
             const signup = document.getElementById("signup");
             if (signup.style.display === "none" || signup.style.display === "") {
@@ -459,8 +424,6 @@
                 login.style.display = "none";
             }
         }
-
-
 
 
         function toggleChat() {
@@ -495,6 +458,37 @@
           }
     </script>
     
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const menu = document.getElementById('menu');
+        const darkToggle = document.getElementById('dark-toggle');
+      
+      
+        menuBtn.addEventListener('click', () => {
+          menu.style.left = menu.style.left === '0px' ? '-100%' : '0px';
+        });
+      
+        darkToggle.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+          localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+      
+        const links = document.querySelectorAll('.menu-link');
+        links.forEach(link => {
+          link.addEventListener('click', () => {
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            menu.style.left = '-100%';
+          });
+        });
+      
+        window.addEventListener('click', (e) => {
+          if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+            menu.style.left = '-100%';
+          }
+        });
+      </script>
+      
     <script>
         const socket = io('http://localhost:5001');
 
